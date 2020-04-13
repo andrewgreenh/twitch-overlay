@@ -1,3 +1,4 @@
+import "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
 import { config } from "../../../shared/config";
 import { updateUserInfo } from "../../../shared/temp/userInfo";
@@ -45,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     ).toISOString(),
   };
 
-  updateUserInfo(userId, (oldInfo) => ({
+  await updateUserInfo(userId, (oldInfo) => ({
     ...oldInfo,
     twitchAuthData: tokenInfo,
   }));

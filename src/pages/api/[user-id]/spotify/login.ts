@@ -1,3 +1,4 @@
+import "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
 import { config } from "../../../../shared/config";
 import {
@@ -17,6 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   } catch (err) {
     console.error("No token present: " + err);
+    console.log("No token found, redirecting to spotify login page.");
   }
   const baseUrl = "https://accounts.spotify.com/authorize";
 

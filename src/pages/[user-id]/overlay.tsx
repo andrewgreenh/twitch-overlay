@@ -1,3 +1,4 @@
+import { css, Global } from "@emotion/core";
 import { useRouter } from "next/router";
 import React from "react";
 import { GradientBackgrounds } from "../../shared/overlay/borders/GradientBackgrounds";
@@ -9,6 +10,13 @@ export function App() {
   if (!userId) return null;
   return (
     <React.Fragment>
+      <Global
+        styles={css`
+          html {
+            background: transparent;
+          }
+        `}
+      />
       <GradientBackgrounds />
       <BottomBar />
       <ViewerNotifications />

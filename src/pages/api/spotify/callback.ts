@@ -1,4 +1,5 @@
 import formUrlEncoded from "form-urlencoded";
+import "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
 import { config } from "../../../shared/config";
 import {
@@ -45,11 +46,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     ).toISOString(),
   };
 
-  updateUserInfo(userId, (oldInfo) => ({
+  await updateUserInfo(userId, (oldInfo) => ({
     ...oldInfo,
     spotifyAuthData: tokenInfo,
   }));
 
-  res.writeHead(302, { Location: "/" + userId });
+  res.writeHead(302, {
+    Location: "/" + userId,
+  });
   res.end();
 };
