@@ -4,5 +4,5 @@ export const environemnt =
         origin: "http://localhost:3000",
       }
     : {
-        origin: "https://localhost",
+        origin: "https://twitch.xent.de",
       };
