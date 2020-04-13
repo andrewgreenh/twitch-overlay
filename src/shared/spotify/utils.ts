@@ -1,6 +1,7 @@
 import formUrlEncoded from "form-urlencoded";
 import { config } from "../config";
 import { environemnt } from "../env";
+import { nodeFetch } from "../nodeFetch";
 import { getUserInfo, updateUserInfo } from "../temp/userInfo";
 
 export const spotifyLoginRedirectUri = `${environemnt.origin}/api/spotify/callback`;
@@ -16,7 +17,7 @@ export async function getCurrentAccessToken(userId: string) {
     return tokenInfo.access_token;
   }
 
-  const response = await fetch("https://accounts.spotify.com/api/token", {
+  const response = await nodeFetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
       Authorization: `Basic ${Buffer.from(

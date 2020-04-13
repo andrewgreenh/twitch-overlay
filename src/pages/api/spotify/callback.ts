@@ -1,7 +1,7 @@
 import formUrlEncoded from "form-urlencoded";
-import "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
 import { config } from "../../../shared/config";
+import { nodeFetch } from "../../../shared/nodeFetch";
 import {
   spotifyLoginRedirectUri,
   SpotifyTokenInformation,
@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const spotifyAuthCode = req.query.code;
   const userId = req.query.state as string;
 
-  const response = await fetch("https://accounts.spotify.com/api/token", {
+  const response = await nodeFetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",

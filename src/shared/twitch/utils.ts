@@ -1,5 +1,6 @@
 import { config } from "../config";
 import { environemnt } from "../env";
+import { nodeFetch } from "../nodeFetch";
 import { getUserInfo, updateUserInfo } from "../temp/userInfo";
 
 export const twitchLoginRedirectUri = `${environemnt.origin}/api/twitch/callback`;
@@ -24,9 +25,12 @@ export async function getCurrentAccessToken(userId: string) {
     .filter(Boolean)
     .join("&")}`;
 
-  const response = await fetch("https://id.twitch.tv/oauth2/token" + query, {
-    method: "POST",
-  });
+  const response = await nodeFetch(
+    "https://id.twitch.tv/oauth2/token" + query,
+    {
+      method: "POST",
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Error refreshing the token.");

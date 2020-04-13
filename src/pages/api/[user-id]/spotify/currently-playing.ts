@@ -1,5 +1,5 @@
-import "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
+import { nodeFetch } from "../../../../shared/nodeFetch";
 import { getCurrentAccessToken } from "../../../../shared/spotify/utils";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
@@ -7,7 +7,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
   const token = await getCurrentAccessToken(userId);
   try {
-    const response = await fetch("https://api.spotify.com/v1/me/player", {
+    const response = await nodeFetch("https://api.spotify.com/v1/me/player", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + token,

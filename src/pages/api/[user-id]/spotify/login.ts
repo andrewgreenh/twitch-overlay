@@ -1,4 +1,3 @@
-import "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
 import { config } from "../../../../shared/config";
 import {

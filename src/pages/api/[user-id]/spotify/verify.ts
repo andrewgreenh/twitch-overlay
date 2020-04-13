@@ -1,4 +1,3 @@
-import "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getCurrentAccessToken } from "../../../../shared/spotify/utils";
 

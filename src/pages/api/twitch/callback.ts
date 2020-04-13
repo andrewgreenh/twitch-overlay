@@ -1,6 +1,6 @@
-import "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
 import { config } from "../../../shared/config";
+import { nodeFetch } from "../../../shared/nodeFetch";
 import { updateUserInfo } from "../../../shared/temp/userInfo";
 import {
   twitchLoginRedirectUri,
@@ -22,9 +22,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     .filter(Boolean)
     .join("&")}`;
 
-  const response = await fetch("https://id.twitch.tv/oauth2/token" + query, {
-    method: "POST",
-  });
+  const response = await nodeFetch(
+    "https://id.twitch.tv/oauth2/token" + query,
+    {
+      method: "POST",
+    }
+  );
 
   if (!response.ok) {
     res.send(await response.text());

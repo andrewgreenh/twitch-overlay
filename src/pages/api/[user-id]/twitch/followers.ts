@@ -1,5 +1,5 @@
-import "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
+import { nodeFetch } from "../../../../shared/nodeFetch";
 import { getCurrentAccessToken } from "../../../../shared/twitch/utils";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
@@ -8,7 +8,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   const token = await getCurrentAccessToken(userId);
 
   try {
-    const response = await fetch("https://api.twitch.tv/helix/users", {
+    const response = await nodeFetch("https://api.twitch.tv/helix/users", {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -20,7 +20,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const userId = (await response.json()).data[0].id;
 
-    const followersResponse = await fetch(
+    const followersResponse = await nodeFetch(
       "https://api.twitch.tv/helix/users/follows?to_id=" + userId,
       {
         headers: {
