@@ -2,17 +2,28 @@ import { css } from "@emotion/core";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import {
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { theme } from "../theme";
+
+const viewerWavUrl = "/viewer.wav";
 
 export function ViewerNotifications() {
   const { ["user-id"]: userId } = useRouter().query;
 
-  const [notificationQueue, setNotificationQueue] = useState<
-    { key: string; content: ReactNode }[]
-  >([]);
+  const [
+    notificationQueue,
+    setNotificationQueue,
+  ] = useState<{ key: string; content: ReactNode }[]>([]);
 
-  const [currentNotification, setCurrentNotification] = useState<{
+  const [
+    currentNotification,
+    setCurrentNotification,
+  ] = useState<{
     key: string;
     content: ReactNode;
   } | null>(null);
@@ -41,12 +52,14 @@ export function ViewerNotifications() {
     let viewerSet = new Set<string>();
 
     async function getViewers() {
-      const data = await fetch(`/api/${userId}/twitch/viewers`).then((x) =>
-        x.json()
-      );
+      const data = await fetch(
+        `/api/${userId}/twitch/viewers`
+      ).then((x) => x.json());
       const newViewers = new Set<string>();
       Object.keys(data).forEach((viewerCategory) => {
-        const viewersOfCategory = data[viewerCategory] as string[];
+        const viewersOfCategory = data[
+          viewerCategory
+        ] as string[];
         viewersOfCategory.forEach((viewer) => {
           if (!viewerSet.has(viewer)) {
             setNotificationQueue((q) => [
@@ -55,7 +68,8 @@ export function ViewerNotifications() {
                 key: viewer,
                 content: (
                   <span>
-                    Hello <strong>{viewer}</strong>! Welcome to the stream!
+                    Hello <strong>{viewer}</strong>! Welcome
+                    to the stream!
                   </span>
                 ),
               },
@@ -96,8 +110,10 @@ function Notification(props: { content: ReactNode }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    const audioElement = new Audio(viewerWavUrl);
     const timeoutA = setTimeout(() => {
       setVisible(true);
+      audioElement.play();
     }, 500);
 
     const timeoutB = setTimeout(() => {
@@ -128,7 +144,10 @@ function Notification(props: { content: ReactNode }) {
         align-items: center;
         font-size: 2em;
         transition: transform 0.5s ease-in-out;
-        transform: translate(${visible ? "0px" : "-200%"}, 0px);
+        transform: translate(
+          ${visible ? "0px" : "-200%"},
+          0px
+        );
         border: 5px solid white;
         box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
       `}
