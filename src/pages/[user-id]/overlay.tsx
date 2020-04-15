@@ -3,13 +3,14 @@ import { useRouter } from "next/router";
 import React from "react";
 import { GradientBackgrounds } from "../../shared/overlay/borders/GradientBackgrounds";
 import { BottomBar } from "../../shared/overlay/bottom-bar/BottomBar";
+import { NotificationQueue } from "../../shared/overlay/notifications/NotificationQueue";
 import { ViewerNotifications } from "../../shared/overlay/notifications/Viewer";
 
 export function App() {
   const { ["user-id"]: userId } = useRouter().query;
   if (!userId) return null;
   return (
-    <React.Fragment>
+    <NotificationQueue>
       <Global
         styles={css`
           html {
@@ -20,7 +21,7 @@ export function App() {
       <GradientBackgrounds />
       <BottomBar />
       <ViewerNotifications />
-    </React.Fragment>
+    </NotificationQueue>
   );
 }
 
