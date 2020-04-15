@@ -3,6 +3,9 @@ import { faTwitch } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useNotify } from "../../notifications/NotificationQueue";
+
+const followerUrl = "/follower.wav";
 
 export function TwitchFollowers() {
   const { ["user-id"]: userId } = useRouter().query;
@@ -17,7 +20,9 @@ export function TwitchFollowers() {
     let cancelled = false;
     async function load() {
       try {
-        const response = await fetch(`/api/${userId}/twitch/followers`);
+        const response = await fetch(
+          `/api/${userId}/twitch/followers`
+        );
         if (cancelled) return;
         const data = await response.json();
         setState({
@@ -44,16 +49,39 @@ export function TwitchFollowers() {
     };
   }, []);
 
+  const lastNFollows = state.data?.data.slice(0, 3);
+
+  const lastFollow = lastNFollows?.[0];
+
+  const notify = useNotify();
+  useEffect(() => {
+    if (!lastFollow) return;
+    notify({
+      content: (
+        <span>
+          Thanks for the follow,{" "}
+          <strong>{lastFollow.from_name}</strong>
+        </span>
+      ),
+      key: lastFollow,
+      soundEffectUrl: followerUrl,
+    });
+  }, [lastFollow?.from_name]);
+
   if (state.state === "fetching") return null;
 
-  const lastNFollowers = state.data.data.slice(0, 3);
   return (
-    <div css={css({ flex: "0 0 auto", whiteSpace: "nowrap" })}>
-      <FontAwesomeIcon icon={faTwitch} /> <span>Last followers: </span>
+    <div
+      css={css({ flex: "0 0 auto", whiteSpace: "nowrap" })}
+    >
+      <FontAwesomeIcon icon={faTwitch} />{" "}
+      <span>Last followers: </span>
       {state.state === "error"
         ? state.errorText
-        : lastNFollowers.map((followInfo: any) => (
-            <span key={followInfo.from_id}>{followInfo.from_name} </span>
+        : lastNFollows.map((followInfo: any) => (
+            <span key={followInfo.from_id}>
+              {followInfo.from_name}{" "}
+            </span>
           ))}
     </div>
   );
