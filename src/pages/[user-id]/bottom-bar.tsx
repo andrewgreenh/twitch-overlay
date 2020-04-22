@@ -1,7 +1,6 @@
 import { css, Global } from "@emotion/core";
 import { useRouter } from "next/router";
 import React from "react";
-import { GradientBackgrounds } from "../../shared/overlay/borders/GradientBackgrounds";
 import { BottomBar } from "../../shared/overlay/bottom-bar/BottomBar";
 
 export function App() {
@@ -16,7 +15,6 @@ export function App() {
           }
         `}
       />
-      <GradientBackgrounds />
       <BottomBar />
     </>
   );

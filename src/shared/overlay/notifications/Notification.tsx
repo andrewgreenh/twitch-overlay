@@ -61,7 +61,7 @@ export function Notification(props: {
         css={css`
           width: 2em;
           height: 2em;
-          border: 5px solid ${theme.colors.accent};
+          border: 5px solid ${theme.colors.accentDark};
           border-radius: 3em;
           display: flex;
           align-items: center;

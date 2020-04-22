@@ -1,4 +1,4 @@
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import { useEffect, useRef } from "react";
 import { theme } from "../theme";
 
@@ -57,7 +57,7 @@ export function GradientBackgrounds() {
           >
             <stop
               offset={`${50 - gradientWidthPercentage}%`}
-              stopColor={theme.colors.accent}
+              stopColor={theme.colors.accentDark}
             />
             <stop
               offset={`${50 + gradientWidthPercentage}%`}

@@ -1,5 +1,6 @@
-import { css, jsx } from "@emotion/core";
+import { css } from "@emotion/core";
 import { Spacer } from "../Spacer";
+import { theme } from "../theme";
 import { Clock } from "./elements/Clock";
 import { Socials } from "./elements/Socials";
 import { SpotifySong } from "./elements/SpotifySong";
@@ -39,4 +40,5 @@ const styles = css`
   padding: 0 2em;
   justify-content: space-between;
   font-size: 1.4em;
+  background: ${theme.colors.dark};
 `;
