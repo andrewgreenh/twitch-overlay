@@ -3,9 +3,6 @@ import { faTwitch } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useNotify } from "../../notifications/NotificationQueue";
-
-const followerUrl = "/follower.wav";
 
 export function TwitchFollowers() {
   const { ["user-id"]: userId } = useRouter().query;
@@ -50,23 +47,6 @@ export function TwitchFollowers() {
   }, []);
 
   const lastNFollows = state.data?.data.slice(0, 3);
-
-  const lastFollow = lastNFollows?.[0];
-
-  const notify = useNotify();
-  useEffect(() => {
-    if (!lastFollow) return;
-    notify({
-      content: (
-        <span>
-          Thanks for the follow,{" "}
-          <strong>{lastFollow.from_name}</strong>
-        </span>
-      ),
-      key: lastFollow,
-      soundEffectUrl: followerUrl,
-    });
-  }, [lastFollow?.from_name]);
 
   if (state.state === "fetching") return null;
 

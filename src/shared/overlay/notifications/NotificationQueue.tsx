@@ -58,6 +58,7 @@ export function NotificationQueue(props: {
         <Notification
           key={currentNotification.key}
           notification={currentNotification}
+          silent={props.silent}
         />
       )}
     </NotificationContext.Provider>

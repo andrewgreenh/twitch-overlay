@@ -6,13 +6,15 @@ import { theme } from "../theme";
 
 export function Notification(props: {
   notification: Notification;
+  silent?: boolean;
 }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const audioElement = props.notification.soundEffectUrl
-      ? new Audio(props.notification.soundEffectUrl)
-      : null;
+    const audioElement =
+      props.notification.soundEffectUrl && !props.silent
+        ? new Audio(props.notification.soundEffectUrl)
+        : null;
 
     const timeoutA = setTimeout(() => {
       setVisible(true);
@@ -35,8 +37,8 @@ export function Notification(props: {
     <div
       css={css`
         position: fixed;
-        top: 200px;
-        left: 100px;
+        top: 0;
+        left: 0;
         background: ${theme.colors.dark};
         color: white;
         border-radius: 3em;
