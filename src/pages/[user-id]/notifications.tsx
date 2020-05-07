@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import React from "react";
 import { NotificationQueue } from "../../shared/overlay/notifications/NotificationQueue";
 import { TwitchFollowersNotification } from "../../shared/overlay/notifications/TwitchFollowers";
-import { ViewerNotifications } from "../../shared/overlay/notifications/Viewer";
 
 export function App() {
   const { ["user-id"]: userId } = useRouter().query;
@@ -17,7 +16,7 @@ export function App() {
           }
         `}
       />
-      <ViewerNotifications />
+      {/* <ViewerNotifications /> */}
       <TwitchFollowersNotification />
     </NotificationQueue>
   );

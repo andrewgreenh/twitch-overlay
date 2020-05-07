@@ -21,6 +21,9 @@ export function TwitchFollowers() {
           `/api/${userId}/twitch/followers`
         );
         if (cancelled) return;
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
         const data = await response.json();
         setState({
           state: "done",
@@ -46,7 +49,7 @@ export function TwitchFollowers() {
     };
   }, []);
 
-  const lastNFollows = state.data?.data.slice(0, 3);
+  const lastNFollows = state.data?.data?.slice(0, 3) ?? [];
 
   if (state.state === "fetching") return null;
 
