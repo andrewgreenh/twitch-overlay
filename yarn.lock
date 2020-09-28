@@ -1462,6 +1462,11 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
+"@types/delaunator@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/delaunator/-/delaunator-3.0.0.tgz#217475640c604def83709f18f652bb372e3897ca"
+  integrity sha512-x8XXE/QqXUPafkqFXeJCQCq/S81IW/t49Nnhgx3yKmGwL89qFRxnXn5qtcil9GO3gVkjGy4SwgacOjCN1B6b7w==
+
 "@types/form-urlencoded@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/form-urlencoded/-/form-urlencoded-2.0.1.tgz#5c7789aca2681564116c3d278359232527e14ba1"
@@ -2658,6 +2663,11 @@ define-property@^2.0.2:
   dependencies:
     is-descriptor "^1.0.2"
     isobject "^3.0.1"
+
+delaunator@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/delaunator/-/delaunator-4.0.1.tgz#3d779687f57919a7a418f8ab947d3bddb6846957"
+  integrity sha512-WNPWi1IRKZfCt/qIDMfERkDp93+iZEmOxN2yy4Jg+Xhv8SLk2UTqqbe1sfiipn0and9QrE914/ihdx82Y/Giag==
 
 des.js@^1.0.0:
   version "1.0.1"
