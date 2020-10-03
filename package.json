@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.27",
@@ -15,10 +16,12 @@
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
+    "@types/d3-delaunay": "^5.3.0",
     "@types/form-urlencoded": "^2.0.1",
     "@types/node": "^13.11.1",
     "@types/react-dom": "^16.9.6",
     "cross-env": "6",
+    "d3-delaunay": "^5.3.0",
     "delaunator": "^4.0.1",
     "firebase": "^7.20.0",
     "firebase-admin": "^8.10.0",
