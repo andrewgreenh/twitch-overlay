@@ -1,5 +1,8 @@
 import { Delaunay } from "d3-delaunay";
+import { scaleLinear } from "d3-scale";
+import { lighten } from "polished";
 import { useEffect, useRef } from "react";
+import { theme } from "../shared/overlay/theme";
 
 export function Background() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -69,6 +72,7 @@ class WorldObject {
     public maxPosition: Coord
   ) {}
   update() {
+    this.seed = (this.seed + 0.2) % 100;
     this.position[0] += this.velocity[0];
     this.position[1] += this.velocity[1];
 
@@ -117,8 +121,6 @@ function printTriangles(
     maxPosition[1],
   ]);
 
-  const { triangles } = d;
-
   for (let i = 0; i < objects.length; i++) {
     const obj = objects[i];
     const polygon = voronoi.cellPolygon(i);
@@ -130,57 +132,18 @@ function printTriangles(
     }
     ctx.lineTo(polygon[0][0], polygon[0][1]);
 
-    const transparency = obj.seed / 100;
+    const colorScale = scaleLinear<string>()
+      .domain([0, 50, 100])
+      .range([
+        theme.colors.dark,
+        lighten(0.2, theme.colors.dark),
+        theme.colors.dark,
+      ]);
 
-    ctx.fillStyle = `rgba(255, 255, 255, ${transparency})`;
-    ctx.strokeStyle = `rgba(255, 255, 255, ${transparency})`;
+    ctx.fillStyle = colorScale(obj.seed)!;
 
     ctx.fill();
-    ctx.stroke();
 
     ctx.closePath();
   }
-  // for (let i = 2; i < triangles.length; i += 3) {
-  //   const v1 = objects[triangles[i - 2]];
-  //   const v2 = objects[triangles[i - 1]];
-  //   const v3 = objects[triangles[i - 0]];
-  //   const x1 = v1.position[0];
-  //   const x2 = v1.position[1];
-  //   const y1 = v2.position[0];
-  //   const y2 = v2.position[1];
-  //   const z1 = v3.position[0];
-  //   const z2 = v3.position[1];
-
-  // const area = Math.abs(
-  //   (x1 * (y2 - z2) + y1 * (z2 - x2) + z1 * (x2 - y2)) / 2
-  // );
-
-  // const seedSum = (v1.seed + v2.seed + v2.seed) % 10;
-  // const seedRatio = seedSum / 10;
-
-  // const maxArea =
-  //   ctx.canvas.width * ctx.canvas.height * 0.1;
-  // const minArea =
-  //   ctx.canvas.width * ctx.canvas.height * 0.01;
-  // const clampedArea = Math.max(
-  //   Math.min(area, maxArea),
-  //   minArea
-  // );
-
-  // const areaRatio = 1 - clampedArea / (maxArea - minArea);
-
-  // const transparency = seedRatio * 0.2;
-
-  // ctx.beginPath();
-
-  // ctx.fillStyle = `rgba(255, 255, 255, ${transparency})`;
-
-  // ctx.moveTo(x1, x2);
-  // ctx.lineTo(y1, y2);
-  // ctx.lineTo(z1, z2);
-  // ctx.lineTo(x1, x2);
-  // ctx.fill();
-
-  // ctx.closePath();
-  // }
 }
